@@ -25,9 +25,9 @@ Many people think that it means that a class or a method should only do one thin
 
 The Single Responsibility Principle (SRP) describes that **a class should have only one reason to change**. In other words it should be responsible to only one "actor" (also referred to as stakeholder or user or group, but these terms muddy the water). 
 
-Consider the following scenario (click for bigger): 
+Consider the following scenario: 
 
-TODO AMACLEOD IMAGE HERE
+![Single Responsibility Principle Violation](images/single-responsibility-principle-01.png "Fig. 1.0: Violating the Single Responsibility Principle")
 
 Our class Andrew supports the following three methods: 
 
