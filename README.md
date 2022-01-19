@@ -11,7 +11,7 @@ It stands for:
 
 ------
 
-[TOC]
+[[_TOC_]]
 
 ------
 
