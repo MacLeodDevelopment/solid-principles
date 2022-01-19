@@ -54,7 +54,7 @@ There are several ways to avoid coupling your class to multiple things which mig
 
 Consider the following scenario: 
 
-![Single Responsibility Principle Violation](images/single-responsibility-principle-02.png "Fig. 1.1: Violating the Single Responsibility Principle")
+![Single Responsibility Principle Implementation](images/single-responsibility-principle-02.png "Fig. 1.2: Implementing the Single Responsibility Principle")
 
 
 In this way, a change to how birthday cakes are made will not affect how computers are fixed in any way. Andrew might still know how to `GetOff TheSofa()` but the other functionality is no longer coupled to that or each other. 
@@ -83,7 +83,7 @@ It does however crop up at an architectural level with the Common Closure Princi
 
 ### Short Version
 
-Simple changes to requirements shouldn't result in massive changes to the software. If they do, then there is a problem with the way that software is architected. (Case study, ask me about OSI and a PoC used for a production study some time.) 
+Simple changes to requirements shouldn't result in massive changes to the software. If they do, then there is a problem with the way that software is architected. (Case study, ask me some time about OSI and a PoC used for a production clinical study some time.) 
 
 ### How do we Achieve This? 
 
@@ -97,15 +97,16 @@ Imagine we have a program that makes chips and serves the chips in newspaper wit
 
 Consider the following complex program:  
 
-TODO AMACLEOD IMAGE HERE
+![Open Closed Principle Violation](images/open-closed-principle-01.png "Fig. 2.1: Violating the Open Closed Principle")
 
 Next thing we know, a requirement comes in to go upmarket and have the chips with the skin on as an option, and to serve them on a plate instead of in newspaper. 
 
 We'll have to change our program. If we'd architected it differently, we'd probably have to change less code. 
 
-We can separate out the different responsibilities into different layers of the application, so that changes in one area won't require changes in another. See below.  
+We can separate out the different responsibilities into different areas of the application, so that changes in one area won't require changes in another. See below.  
 
-TODO AMACLEOD IMAGE HERE
+![Open Closed Principle Implementation](images/open-closed-principle-02.png "Fig. 2.2: Implementing the Open Closed Principle")
+
 
 By doing this, we can extend the functionality of individual parts of the application without affecting others:  
 
