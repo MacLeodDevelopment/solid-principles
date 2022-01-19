@@ -52,9 +52,10 @@ This is **bad**, because:
 
 There are several ways to avoid coupling your class to multiple things which might need it to change. Using our example above, the simplest way would be to create objects to support the operations that everyone needs Andrew to do, or **separate the data from the functions**.  
 
-Consider the following scenario (click for bigger): 
+Consider the following scenario: 
 
-TODO AMACLEOD IMAGE HERE
+![Single Responsibility Principle Violation](images/single-responsibility-principle-02.png "Fig. 1.1: Violating the Single Responsibility Principle")
+
 
 In this way, a change to how birthday cakes are made will not affect how computers are fixed in any way. Andrew might still know how to `GetOff TheSofa()` but the other functionality is no longer coupled to that or each other. 
 
