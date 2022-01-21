@@ -67,9 +67,8 @@ Another approach is to keep the most important function close to the data (i.e. 
 
 ### Summary 
 
-The Single Responsibility Principle can be applied to functions or indeed whole components or applications, but is primarily concerned with classes and preventing changes to one behaviour from breaking other behaviours. 
-
-It does however crop up at an architectural level with the Common Closure Principle. When designing a component or a system, we should always think about what will have to change if requirements change. 
+* The Single Responsibility Principle can be applied to functions or indeed whole components or applications, but is primarily concerned with classes and preventing changes to one behaviour from breaking other behaviours. 
+* It does however crop up at an architectural level with the Common Closure Principle. When designing a component or a system, we should always think about what will have to change if requirements change. 
 
 ------
 
@@ -105,28 +104,29 @@ We'll have to change our program. If we'd architected it differently, we'd proba
 
 We can separate out the different responsibilities into different areas of the application, so that changes in one area won't require changes in another. See below.  
 
-![Open Closed Principle Implementation](images/open-closed-principle-02.png "Fig. 2.2: Implementing the Open Closed Principle")
+![Open Closed Principle Implementation Overview](images/open-closed-principle-02.png "Fig. 2.2: An Overview of Implementing the Open Closed Principle")
 
+From our example above, this might break down like this:  
+
+![Open Closed Principle Implementation Detail](images/open-closed-principle-03.png "Fig. 2.3: Detail of Implementing the Open Closed Principle")
 
 By doing this, we can extend the functionality of individual parts of the application without affecting others:  
 
-TODO AMACLEOD IMAGE HERE
+![Open Closed Principle Implementation Detail with Added Functionality](images/open-closed-principle-04.png "Fig. 2.4: Detail of Implementing the Open Closed Principle with Added Functionality")
 
-The thing to focus on is the direction of the dependencies. Everything depends on the Chip Shop Supervisor, because he/she knows the business domain. 
+The thing to focus on is the direction of the dependencies. Everything depends on the Chip Shop Supervisor, because he/she knows the business **domain**. 
 
 **If we want to protect the Chip Shop Supervisor from changes in other components, then the other components should depend on it - not the other way round.** 
 
-The basic take-away (ha!) is that the new requirement does not fundamentally change the way the chips are made, even though the end product is quite different.  
+The basic take-away (ha!) is that in the new architecture, the new requirement does not fundamentally change the way the chips are made, even though the end product is quite different.  
 
-> Disclaimer: The example here is over-simplified and once you start to think about it you'd want `IPotato`, `IChip` and implementations of `IChip` with maybe `RawChip` and `CookedChip` etc.  
+> Disclaimer: The example here is over-simplified and once you start to think about it you'd want all sorts of different things, maybe `IPotato`, `IChip` and implementations of `IChip` with maybe `RawChip` and `CookedChip` etc.  
 
 ### Summary 
 
-Changes in requirements should not result in massive changes to code. 
-
-Make your code **and** components easy to extend without resulting in high-impact changes. 
-
-Think about what dependencies you create and what hierarchy should result.  
+* Changes in requirements should not result in massive changes to code. 
+* Make your code **and** components easy to extend without resulting in high-impact changes. 
+* Think about what dependencies you create and what hierarchy should result.  
 
 ------
 
@@ -134,7 +134,7 @@ Think about what dependencies you create and what hierarchy should result.
 
 This principle relates to inheritance. In the industry there has been a shift away from using inheritance (many pitfalls!), so you can probably skim this one if you're short on time. If however, you want to impress all of your friends, read on.  
 
-TODO AMACLEOD IMAGE HERE
+![Barbara Liskov](images/babs.jpg "Fig. 3.0: Barbara Liskov")
 
 The Liskov Substitution Principle (LSP) is designed to guide usage of inheritance. It states: 
 
@@ -145,7 +145,7 @@ Barbara Liskov, "Data Abstraction and Hierarchy", SIGPLAN Notices 23, 5 (May 198
 
 When using inheritance it is easy to violate the LSP and create coupling and unwanted dependencies. Consider the following: 
 
-TODO AMACLEOD IMAGE HERE
+![Liskov Substitution Principle Problem](images/liskov-substitution-principle-01.png "Fig. 3.1: Liskov Substitution Principle - The Problem")
 
 `Jaffacake` inherits from `Biscuit`, but it is not a proper subtype, because its behaviour is not like a `Biscuit`.  
 
@@ -157,19 +157,18 @@ The behaviour of `HungryPerson` now depends on `Jaffacake`, so `Biscuit` and `Ja
 
 Consider the following: 
 
-TODO AMACLEOD IMAGE HERE NOTE YUMMY FLAVOUR
+![Liskov Substitution Principle Example](images/liskov-substitution-principle-02.png "Fig. 3.2: Liskov Substitution Principle - Example")
 
 `ChocolateHobnob`, `Jaffacake` and `MarshmallowSnowball` all inherit from `DeliciousTreat` but implement the `YummyFlavour` in their own way. 
 
-The program above conforms to the Liskov Substitution Principle because `HungryPerson` does not depend on the implementation of the subtypes in any way. 
+The program above **conforms** to the Liskov Substitution Principle because `HungryPerson` does not depend on the implementation of the subtypes in any way. 
 
-`HungryPerson` doesn't have to know anything about how the `YummyFlavour` is figured out, they just know about `DeliciousTreats` and how to consume the `YummyFlavour`.  
+`HungryPerson` doesn't have to know anything about how the `YummyFlavour` is figured out, they just know about `DeliciousTreats` and how to enjoy the `YummyFlavour`.  
 
 ### Summary 
 
-The Liskov Substitution Principle has morphed into a broader recommendation for software architecture. By avoiding inheritance where possible and using interfaces it is easier to avoid the pitfalls.  
-
-It should be understood and borne in mind when designing a distributed architecture. Ask yourself, are you having to write code in one component to account for specifics in another?  
+* The Liskov Substitution Principle has morphed into a broader recommendation for software architecture. By avoiding inheritance where possible and using interfaces it is easier to avoid the pitfalls.  
+* It should be understood and borne in mind when designing a distributed architecture. Ask yourself, are you having to write code in one component to account for specifics in another?  
 
 ------
 
@@ -181,7 +180,7 @@ The key here is to avoid dependency on things which have more than you need. Thi
 
 Consider the following: 
 
-TODO AMACLEOD IMAGE HERE
+![Interface Segregation Principle - Problem](images/interface-segregation-principle-01.png "Fig. 4.0: Interface Segregation Principle - Example")
 
 `Delicates`, `Linens` and `T-Shirts` all use `WashingMachine`, but use different functions of the machine. The internals of `WashingMachine` may have shared functionality, such as `HeatWater` or `MixDetergent`. 
 
@@ -193,17 +192,15 @@ A change to the behaviour in `WashAt30Degrees` which is only needed by `Delicate
 
 Segregate the operations into interfaces as below. 
 
-TODO AMACLEOD IMAGE HERE
+![Interface Segregation Principle - Solution](images/interface-segregation-principle-02.png "Fig. 4.1: Interface Segregation Principle - Solution")
 
 Now, `WashingMachine` still implements the same behaviours, but `Delicates`, `Linens` and `T-Shirts` only know about the behaviours they care about.  
 
 ### Summary 
 
-Segregation of behaviour through interfaces reduces coupling between classes. 
-
-This principle can also be applied to components in distributed architecture. 
-
-Beware the trap of premature optimisation or segregation when dealing with services or packages though! Ask me about some specific examples (e.g. pulling out NuGet packages for shared code too early). 
+* Segregation of behaviour through interfaces reduces coupling between classes. 
+* This principle can also be applied to components in distributed architecture. 
+* Beware the trap of premature optimisation or segregation when dealing with services or packages though! Ask me about some specific examples (e.g. pulling out NuGet packages for shared code too early). 
 
 ------
 
@@ -213,11 +210,11 @@ The aim of this principle is to avoid the breakages which arise when software sy
 
 Also importantly, it isolates units of functionality to allow them to be unit tested. 
 
-The Problem 
+### The Problem 
 
 Consider the following: 
 
-TODO AMACLEOD IMAGE HERE
+![Dependency Inversion Principle - Problem](images/dependency-inversion-principle-01.png "Fig. 5.0: Dependency Inversion Principle - Problem")
 
 The `CakeIcingService` has been coupled to `Battenberg` directly by the creation of a dependency on the concrete implementation of `WrapInMarzipan()`.  This means that the `CakeIcingService` has to specifically know that icing a `Battenberg` involves wrapping it in marzipan. 
 
@@ -231,7 +228,7 @@ What happens if we want to ice a cake that **isn't** covered in marzipan?
 
 A better approach would be to make the `CakeIcingService` depend upon an abstraction, so that it does not know about the specifics of what the cake is wrapped in. Consider the following:  
 
-TODO AMACLEOD IMAGE HERE
+![Dependency Inversion Principle - Solution](images/dependency-inversion-principle-02.png "Fig. 5.1: Dependency Inversion Principle - Solution")
 
 `CakeIcingService` now knows about `ICake` and how to invoke `Ice()` on `ICake` - but does not know about the specifics of icing any individual cake. 
 
@@ -239,18 +236,16 @@ TODO AMACLEOD IMAGE HERE
 
 ### Summary 
 
-Good practice is to use interfaces to insulate against changes to the implementation of your dependencies.  
-
-Breaking changes to interfaces should be minimised where possible. 
+* Good practice is to use interfaces to insulate against changes to the implementation of your dependencies.  
+* Breaking changes to interfaces should be minimised where possible. 
 
 > **Note:** The below are not hard rules for all situations, merely guidelines. 
 
-We can encourage insulation against changes to dependencies by using abstraction and by adhering to the following practices: 
-
-* Avoid referring to concrete classes, reference an abstract interface instead. This helps enforce the use of the Abstract Factory Pattern. (https://www.dofactory.com/net/abstract-factory-design-pattern)  
-* Avoid deriving from concrete classes. Inheritance couples classes together and should be used with care. 
-* Avoid overriding concrete functions. See previous point. 
-* Avoid using the names of concrete implementations in your code.  
+* We can encourage insulation against changes to dependencies by using abstraction and by adhering to the following practices:
+  * Avoid referring to concrete classes, reference an abstract interface instead. This helps enforce the use of the Abstract Factory Pattern. (https://www.dofactory.com/net/abstract-factory-design-pattern)  
+  * Avoid deriving from concrete classes. Inheritance couples classes together and should be used with care. 
+  * Avoid overriding concrete functions. See previous point. 
+  * Avoid using the names of concrete implementations in your code.  
 
 > **Note!** You can have too much of a good thing. Too much abstraction can be confusing and difficult to work with!
 
